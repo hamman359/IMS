@@ -1,3 +1,5 @@
+using Scalar.AspNetCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -10,6 +12,12 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
+    app.MapScalarApiReference(options =>
+    {
+        options
+            .WithTitle("IMS.OrderPlacement API")
+            .WithDefaultHttpClient(ScalarTarget.CSharp, ScalarClient.HttpClient);
+    });
 }
 
 app.UseHttpsRedirection();
@@ -41,11 +49,10 @@ app.MapGet("/weatherforecast", () =>
 })
 .WithName("GetWeatherForecast");
 
-await app.RunAsync().ConfigureAwait(false);
+await app.RunAsync();
 
-#pragma warning disable S3903 // Types should be defined in named namespaces
+
 internal record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-#pragma warning restore S3903 // Types should be defined in named namespaces
 {
     public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
 }

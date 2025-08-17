@@ -1,6 +1,0 @@
-services:
-  ims.orderplacement.api:
-    image: ${DOCKER_REGISTRY-}imsorderplacementapi
-    build:
-      context: .
-      dockerfile: src/IMS.OrderPlacement.Api/Dockerfile
