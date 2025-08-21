@@ -1,10 +1,17 @@
 using Carter;
 
+using IMS.ItemInventory.Api.Configuration;
+
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services
+    .InstallServices(
+        builder.Configuration,
+        typeof(IServiceInstaller).Assembly);
+
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
@@ -19,7 +26,7 @@ if (app.Environment.IsDevelopment())
     app.MapScalarApiReference(options =>
     {
         options
-            .WithTitle("IMS.OrderPlacement API")
+            .WithTitle("IMS.ItemInventory API")
             .WithDefaultHttpClient(ScalarTarget.CSharp, ScalarClient.HttpClient);
     });
 }
