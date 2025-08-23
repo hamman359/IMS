@@ -14,7 +14,7 @@ public class TestQueryHandler : IQueryHandler<TestQuery, string>
     {
         await Task.CompletedTask;
 
-        return new Result<string>();
+        return "";
     }
 
 }
