@@ -1,4 +1,4 @@
-﻿namespace IMS.ItemInventory.Api.Shared;
+﻿namespace IMS.ItemInventory.Api.Shared.Results;
 
 /// <summary>
 /// Wrapper around Result for Validations

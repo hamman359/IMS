@@ -1,6 +1,5 @@
-﻿
-using IMS.ItemInventory.Api.Shared;
-using IMS.ItemInventory.Api.Shared.CRQS;
+﻿using IMS.ItemInventory.Api.Shared.Messaging;
+using IMS.ItemInventory.Api.Shared.Results;
 
 namespace IMS.ItemInventory.Api.Features;
 

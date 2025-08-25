@@ -12,16 +12,26 @@
   <ItemGroup>
     <PackageReference Include="Carter" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" />
     <PackageReference Include="Microsoft.Extensions.ApiDescription.Server" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" />
+    <PackageReference Include="Newtonsoft.Json" />
+    <PackageReference Include="Polly" />
+    <PackageReference Include="Quartz" />
+    <PackageReference Include="Quartz.Extensions.Hosting" />
     <PackageReference Include="Scalar.AspNetCore" />
     <PackageReference Include="Scrutor" />
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Abstractions\" />
     <Folder Include="Infrastructure\" />
     <Folder Include="Migrations\" />
     <Folder Include="Model\" />
+    <Folder Include="Errors\" />
+    <Folder Include="Model\Entities\" />
+    <Folder Include="Events\" />
+    <Folder Include="Model\ValueObjects\" />
   </ItemGroup>
 
 </Project>

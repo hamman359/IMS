@@ -1,4 +1,6 @@
-﻿namespace IMS.ItemInventory.Api.Primatives;
+﻿using IMS.ItemInventory.Api.Shared.Messaging;
+
+namespace IMS.ItemInventory.Api.Shared.Primatives;
 
 public abstract class AggregateRoot : Entity
 {

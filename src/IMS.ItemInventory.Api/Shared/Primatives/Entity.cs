@@ -1,4 +1,4 @@
-﻿namespace IMS.ItemInventory.Api.Primatives;
+﻿namespace IMS.ItemInventory.Api.Shared.Primatives;
 
 public abstract class Entity : IEquatable<Entity>
 {

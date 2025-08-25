@@ -1,4 +1,4 @@
-﻿namespace IMS.ItemInventory.Api.Shared;
+﻿namespace IMS.ItemInventory.Api.Shared.Results;
 public static class ResultExtensions
 {
     public static Result<T> Ensure<T>(

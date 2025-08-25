@@ -1,6 +1,6 @@
 ﻿using Carter;
 
-using IMS.ItemInventory.Api.Shared.CRQS;
+using IMS.ItemInventory.Api.Shared.Messaging;
 
 namespace IMS.ItemInventory.Api.Features;
 

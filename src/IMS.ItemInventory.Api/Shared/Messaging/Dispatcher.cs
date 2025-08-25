@@ -1,4 +1,4 @@
-﻿namespace IMS.ItemInventory.Api.Shared.CRQS;
+﻿namespace IMS.ItemInventory.Api.Shared.Messaging;
 
 public class Dispatcher(IServiceProvider provider) : IDispatcher
 {
@@ -33,4 +33,20 @@ public class Dispatcher(IServiceProvider provider) : IDispatcher
 
         return handler.Handle((dynamic)command, cancellationToken);
     }
+
+    public Task<TResult> SendDomainEventAsync<TResult>(IDomainEvent domainEvent, CancellationToken cancellationToken)
+    {
+        ArgumentNullException.ThrowIfNull(domainEvent);
+
+        var handlerType = typeof(IDomainEvent).MakeGenericType(domainEvent.GetType());
+        dynamic handler = _provider.GetRequiredService(handlerType);
+
+        if (handler is null)
+        {
+            throw new ArgumentException("");
+        }
+
+        return handler.Handle((dynamic)domainEvent, cancellationToken);
+    }
+
 }

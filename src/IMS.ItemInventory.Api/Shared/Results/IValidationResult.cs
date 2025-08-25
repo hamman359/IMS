@@ -1,4 +1,4 @@
-﻿namespace IMS.ItemInventory.Api.Shared;
+﻿namespace IMS.ItemInventory.Api.Shared.Results;
 
 /// <summary>
 /// Represents the Validation result being returned by the Validation Pipeline Behavior

@@ -1,4 +1,6 @@
-﻿namespace IMS.ItemInventory.Api.Shared.CRQS;
+﻿using IMS.ItemInventory.Api.Shared.Results;
+
+namespace IMS.ItemInventory.Api.Shared.Messaging;
 
 public interface ICommandHandler<in TCommand>
     : IBaseCommandHandler

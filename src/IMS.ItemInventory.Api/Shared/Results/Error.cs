@@ -1,4 +1,4 @@
-﻿namespace IMS.ItemInventory.Api.Shared;
+﻿namespace IMS.ItemInventory.Api.Shared.Results;
 
 public class Error : IEquatable<Error>
 {
