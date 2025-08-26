@@ -1,4 +1,4 @@
-﻿namespace IMS.ItemInventory.Api.Shared.Messaging;
+﻿namespace IMS.ItemInventory.Api.Shared.Primatives;
 
 public interface IAuditableEntity
 {

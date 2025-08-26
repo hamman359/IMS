@@ -1,5 +1,4 @@
 ﻿using IMS.ItemInventory.Api.Data;
-using IMS.ItemInventory.Api.Shared.Messaging;
 using IMS.ItemInventory.Api.Shared.Outbox;
 using IMS.ItemInventory.Api.Shared.Persistence;
 using IMS.ItemInventory.Api.Shared.Primatives;
