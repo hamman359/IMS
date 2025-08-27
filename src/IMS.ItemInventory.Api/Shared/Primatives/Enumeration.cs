@@ -15,7 +15,7 @@ public abstract class Enumeration<TEnum>
     }
 
     public int Value { get; protected init; }
-    public string Name { get; protected init; } = string.Empty;
+    public string Name { get; protected init; }
 
     public static TEnum? FromValue(int value)
     {

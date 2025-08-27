@@ -2,6 +2,8 @@
 
 using FluentValidation;
 
+using IMS.ItemInventory.Api.Shared.Configuration;
+
 namespace IMS.ItemInventory.Api.Configuration;
 
 public static class DependencyInjection

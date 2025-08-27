@@ -6,10 +6,8 @@
 public sealed class ValidationResult : Result, IValidationResult
 {
     private ValidationResult(Error[] errors)
-        : base(false, IValidationResult.ValidationError) =>
-        Errors = errors;
+        : base(false, IValidationResult.ValidationError) { }
 
-    public Error[] Errors { get; }
 
     /// <summary>
     /// Allows for creating a validation result by specifying an array validation errors.
@@ -23,10 +21,8 @@ public sealed class ValidationResult : Result, IValidationResult
 public sealed class ValidationResult<TValue> : Result<TValue>, IValidationResult
 {
     private ValidationResult(Error[] errors)
-        : base(default, false, IValidationResult.ValidationError) =>
-        Errors = errors;
+        : base(default, false, IValidationResult.ValidationError) { }
 
-    public Error[] Errors { get; }
 
     /// <summary>
     /// Allows for creating a validation result by specifying an array validation errors.

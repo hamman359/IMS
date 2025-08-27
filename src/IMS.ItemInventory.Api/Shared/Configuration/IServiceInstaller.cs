@@ -1,4 +1,4 @@
-﻿namespace IMS.ItemInventory.Api.Configuration;
+﻿namespace IMS.ItemInventory.Api.Shared.Configuration;
 
 public interface IServiceInstaller
 {

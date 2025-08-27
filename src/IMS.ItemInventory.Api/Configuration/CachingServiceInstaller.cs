@@ -1,0 +1,13 @@
+﻿using IMS.ItemInventory.Api.Shared.Caching;
+using IMS.ItemInventory.Api.Shared.Configuration;
+
+namespace IMS.ItemInventory.Api.Configuration;
+
+public class CachingServiceInstaller : IServiceInstaller
+{
+    public void Install(IServiceCollection services, IConfiguration configuration)
+    {
+        services.AddDistributedMemoryCache();
+        services.AddSingleton<ICacheService, CacheService>();
+    }
+}

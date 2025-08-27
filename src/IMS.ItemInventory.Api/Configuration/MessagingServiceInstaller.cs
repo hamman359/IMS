@@ -1,8 +1,9 @@
-﻿using IMS.ItemInventory.Api.Shared.Messaging;
+﻿using IMS.ItemInventory.Api.Shared.Configuration;
+using IMS.ItemInventory.Api.Shared.Messaging;
 
 namespace IMS.ItemInventory.Api.Configuration;
 
-public class CqrsServiceInstaller : IServiceInstaller
+public class MessagingServiceInstaller : IServiceInstaller
 {
     public void Install(IServiceCollection services, IConfiguration configuration)
     {
