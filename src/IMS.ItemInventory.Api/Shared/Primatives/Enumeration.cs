@@ -6,7 +6,7 @@ public abstract class Enumeration<TEnum>
     : IEquatable<Enumeration<TEnum>>
     where TEnum : Enumeration<TEnum>
 {
-    private static readonly Dictionary<int, TEnum> Enumerations = CreateEnumeration()
+    private static readonly Dictionary<int, TEnum> Enumerations = CreateEnumeration();
 
     protected Enumeration(int value, string name)
     {
@@ -30,7 +30,7 @@ public abstract class Enumeration<TEnum>
     {
         return Enumerations
             .Values
-            .SingleOrDefault(e => e.Name == name)
+            .SingleOrDefault(e => e.Name == name);
     }
 
     public bool Equals(Enumeration<TEnum>? other)
