@@ -13,7 +13,7 @@ public class TestQueryHandler : IQueryHandler<TestQuery, string>
     {
         await Task.CompletedTask;
 
-        return "";
+        return Result.Success("");
     }
 
 }

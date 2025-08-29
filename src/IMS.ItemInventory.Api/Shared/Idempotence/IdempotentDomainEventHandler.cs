@@ -9,28 +9,19 @@ using Microsoft.EntityFrameworkCore;
 
 namespace IMS.ItemInventory.Api.Shared.Idempotence;
 
-public sealed class IdempotentDomainEventHandler<TDomainEvent>
+public sealed class IdempotentDomainEventHandler<TDomainEvent>(
+    INotificationHandler<TDomainEvent> decorated,
+    InventoryManagementDbContext dbContext)
     : IDomainEventHandler<TDomainEvent>
     where TDomainEvent : IDomainEvent
 {
-    private readonly INotificationHandler<TDomainEvent> _decorated;
-    private readonly InventoryManagementDbContext _dbContext;
-
-    public IdempotentDomainEventHandler(
-        INotificationHandler<TDomainEvent> decorated,
-        InventoryManagementDbContext dbContext)
-    {
-        _decorated = decorated;
-        _dbContext = dbContext;
-    }
-
     public async Task Handle(
         TDomainEvent notification,
         CancellationToken cancellationToken)
     {
-        string consumer = _decorated.GetType().Name;
+        string consumer = decorated.GetType().Name;
 
-        if (await _dbContext.Set<OutboxMessageConsumer>()
+        if (await dbContext.Set<OutboxMessageConsumer>()
             .AnyAsync(
                 o =>
                     o.Id == notification.Id &&
@@ -40,9 +31,9 @@ public sealed class IdempotentDomainEventHandler<TDomainEvent>
             return;
         }
 
-        await _decorated.Handle(notification, cancellationToken);
+        await decorated.Handle(notification, cancellationToken);
 
-        _dbContext.Set<OutboxMessageConsumer>()
+        dbContext.Set<OutboxMessageConsumer>()
             .Add(new OutboxMessageConsumer
             {
                 Id = notification.Id,
