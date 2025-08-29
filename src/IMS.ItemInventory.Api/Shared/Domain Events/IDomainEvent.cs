@@ -1,6 +1,8 @@
-﻿namespace IMS.ItemInventory.Api.Shared.Messaging;
+﻿using MediatR;
 
-public interface IDomainEvent
+namespace IMS.ItemInventory.Api.Shared.Messaging;
+
+public interface IDomainEvent : INotification
 {
     public Guid Id { get; init; }
 }

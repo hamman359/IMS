@@ -1,3 +1,5 @@
-﻿namespace IMS.ItemInventory.Api.Shared.Messaging;
+﻿using MediatR;
+
+namespace IMS.ItemInventory.Api.Shared.Messaging;
 
 public interface IQuery<TResponse> : IRequest { }

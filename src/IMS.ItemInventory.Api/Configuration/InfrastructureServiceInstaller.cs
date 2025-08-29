@@ -1,5 +1,7 @@
 ﻿using IMS.ItemInventory.Api.Data;
+using IMS.ItemInventory.Api.Persistence;
 using IMS.ItemInventory.Api.Shared.Configuration;
+using IMS.ItemInventory.Api.Shared.Persistence;
 
 using Microsoft.EntityFrameworkCore;
 
@@ -14,7 +16,7 @@ public class InfrastructureServiceInstaller : IServiceInstaller
         services
             .Scan(
                 selector => selector
-                    .FromAssemblies(AssemblyReference.Assembly)
+                    .FromAssemblies(ItemInventoryAssemblyReference.Assembly)
                     .AddClasses(false)
                     .UsingRegistrationStrategy(RegistrationStrategy.Skip)
                     .AsMatchingInterface()
@@ -29,5 +31,13 @@ public class InfrastructureServiceInstaller : IServiceInstaller
             {
                 optionsBuilder.UseSqlServer(configuration.GetConnectionString("Database"), default);
             });
+
+        services.AddScoped<InventoryManagementDbContext>(sp =>
+            sp.GetRequiredService<InventoryManagementDbContext>());
+
+        services.AddScoped<IUnitOfWork>(sp =>
+            sp.GetRequiredService<UnitOfWork>());
+
+        //services.AddScoped<IFooRepository, FooRepository>();
     }
 }

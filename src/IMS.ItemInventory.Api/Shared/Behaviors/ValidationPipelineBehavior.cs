@@ -1,68 +1,70 @@
-﻿//using FluentValidation;
+﻿using FluentValidation;
 
-//using IMS.ItemInventory.Api.Shared.Messaging;
-//using IMS.ItemInventory.Api.Shared.Results;
+using IMS.ItemInventory.Api.Shared.Messaging;
+using IMS.ItemInventory.Api.Shared.Results;
 
-//namespace IMS.ItemInventory.Api.Shared.Behaviors;
+using MediatR;
 
-//public class ValidationPipelineBehavior<TRequest, TResponse>
-//    : IPipelineBehavior<TRequest, TResponse>
-//    where TRequest : IRequest
-//    where TResponse : Result
-//{
-//    private readonly IEnumerable<IValidator<TRequest>> _validators;
+namespace IMS.ItemInventory.Api.Shared.Behaviors;
 
-//    public ValidationPipelineBehavior(IEnumerable<IValidator<TRequest>> validators) =>
-//        _validators = validators;
+public class ValidationPipelineBehavior<TRequest, TResponse>
+    : IPipelineBehavior<TRequest, TResponse>
+    where TRequest : IRequest
+    where TResponse : Result
+{
+    private readonly IEnumerable<IValidator<TRequest>> _validators;
 
-//    /// <summary>
-//    /// Validates the request.
-//    /// Ifany errors, returns validation result.
-//    /// Otherwise, returns the result of the next() delegate execution.
-//    /// Skips the validation if there are not any validators defined.
-//    /// </summary>
-//    public async Task<TResponse> Handle(
-//        TRequest request,
-//        RequestHandlerDelegate<TResponse> next,
-//        CancellationToken cancellationToken)
-//    {
-//        if (!_validators.Any())
-//        {
-//            return await next();
-//        }
+    public ValidationPipelineBehavior(IEnumerable<IValidator<TRequest>> validators) =>
+        _validators = validators;
 
-//        Error[] errors = _validators
-//            .Select(validator => validator.Validate(request))
-//            .SelectMany(validationResult => validationResult.Errors)
-//            .Where(validationFailure => validationFailure is not null)
-//            .Select(failure => new Error(
-//                failure.PropertyName,
-//                failure.ErrorMessage))
-//            .Distinct()
-//            .ToArray();
+    /// <summary>
+    /// Validates the request.
+    /// Ifany errors, returns validation result.
+    /// Otherwise, returns the result of the next() delegate execution.
+    /// Skips the validation if there are not any validators defined.
+    /// </summary>
+    public async Task<TResponse> Handle(
+        TRequest request,
+        RequestHandlerDelegate<TResponse> next,
+        CancellationToken cancellationToken)
+    {
+        if (!_validators.Any())
+        {
+            return await next();
+        }
 
-//        if (errors.Any())
-//        {
-//            return CreateValidationResult<TResponse>(errors);
-//        }
+        Error[] errors = _validators
+            .Select(validator => validator.Validate(request))
+            .SelectMany(validationResult => validationResult.Errors)
+            .Where(validationFailure => validationFailure is not null)
+            .Select(failure => new Error(
+                failure.PropertyName,
+                failure.ErrorMessage))
+            .Distinct()
+            .ToArray();
 
-//        return await next();
-//    }
+        if (errors.Any())
+        {
+            return CreateValidationResult<TResponse>(errors);
+        }
 
-//    private static TResult CreateValidationResult<TResult>(Error[] errors)
-//        where TResult : Result
-//    {
-//        if (typeof(TResult) == typeof(Result))
-//        {
-//            return (ValidationResult.WithErrors(errors) as TResult)!;
-//        }
+        return await next();
+    }
 
-//        object validationResult = typeof(ValidationResult<>)
-//            .GetGenericTypeDefinition()
-//            .MakeGenericType(typeof(TResult).GenericTypeArguments[0])
-//            .GetMethod(nameof(ValidationResult.WithErrors))!
-//            .Invoke(null, new object?[] { errors })!;
+    private static TResult CreateValidationResult<TResult>(Error[] errors)
+        where TResult : Result
+    {
+        if (typeof(TResult) == typeof(Result))
+        {
+            return (ValidationResult.WithErrors(errors) as TResult)!;
+        }
 
-//        return (TResult)validationResult;
-//    }
-//}
+        object validationResult = typeof(ValidationResult<>)
+            .GetGenericTypeDefinition()
+            .MakeGenericType(typeof(TResult).GenericTypeArguments[0])
+            .GetMethod(nameof(ValidationResult.WithErrors))!
+            .Invoke(null, new object?[] { errors })!;
+
+        return (TResult)validationResult;
+    }
+}

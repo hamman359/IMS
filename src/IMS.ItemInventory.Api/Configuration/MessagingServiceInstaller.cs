@@ -1,5 +1,9 @@
-﻿using IMS.ItemInventory.Api.Shared.Configuration;
-using IMS.ItemInventory.Api.Shared.Messaging;
+﻿using FluentValidation;
+
+using IMS.ItemInventory.Api.Data;
+using IMS.ItemInventory.Api.Shared.Behaviors;
+using IMS.ItemInventory.Api.Shared.Configuration;
+using IMS.ItemInventory.Api.Shared.Idempotence;
 
 namespace IMS.ItemInventory.Api.Configuration;
 
@@ -7,15 +11,19 @@ public class MessagingServiceInstaller : IServiceInstaller
 {
     public void Install(IServiceCollection services, IConfiguration configuration)
     {
-        services.Scan(scan => scan.FromAssembliesOf(typeof(Dispatcher))
-            .AddClasses(classes => classes.AssignableTo(typeof(IQueryHandler<,>)), publicOnly: false)
-                .AsImplementedInterfaces()
-            .AddClasses(classes => classes.AssignableTo(typeof(ICommandHandler<>)), publicOnly: false)
-                .AsImplementedInterfaces()
-            .AddClasses(classes => classes.AssignableTo(typeof(ICommandHandler<,>)), publicOnly: false)
-                .AsImplementedInterfaces()
-            .AddClasses(classes => classes.AssignableTo(typeof(IDispatcher)), publicOnly: false)
-                .AsImplementedInterfaces()
-            .WithScopedLifetime());
+        services.AddMediatR(config =>
+        {
+            config.RegisterServicesFromAssemblyContaining<InventoryManagementDbContext>();
+
+            config.AddOpenBehavior(typeof(ValidationPipelineBehavior<,>));
+            config.AddOpenBehavior(typeof(IdempotentDomainEventHandler<>));
+            config.AddOpenBehavior(typeof(QueryCachingPipelineBehavior<,>));
+            config.AddOpenBehavior(typeof(UnitOfWorkBehavior<,>));
+            config.AddOpenBehavior(typeof(LoggingPipelineBehavior<,>));
+        });
+
+        services.AddValidatorsFromAssembly(
+            ItemInventoryAssemblyReference.Assembly,
+            includeInternalTypes: true);
     }
 }

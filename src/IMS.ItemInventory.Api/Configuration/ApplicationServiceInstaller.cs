@@ -11,7 +11,7 @@ public class ApplicationServiceInstaller : IServiceInstaller
     public void Install(IServiceCollection services, IConfiguration configuration)
     {
         services.AddValidatorsFromAssembly(
-            AssemblyReference.Assembly,
+            ItemInventoryAssemblyReference.Assembly,
             includeInternalTypes: true);
     }
 }

@@ -10,5 +10,5 @@ public class InventoryManagementDbContext : DbContext
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder) =>
-        modelBuilder.ApplyConfigurationsFromAssembly(AssemblyReference.Assembly);
+        modelBuilder.ApplyConfigurationsFromAssembly(ItemInventoryAssemblyReference.Assembly);
 }
