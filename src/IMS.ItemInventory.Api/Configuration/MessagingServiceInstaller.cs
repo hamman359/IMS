@@ -1,6 +1,5 @@
 ﻿using FluentValidation;
 
-using IMS.ItemInventory.Api.Data;
 using IMS.ItemInventory.Api.Shared.Behaviors;
 using IMS.ItemInventory.Api.Shared.Configuration;
 using IMS.ItemInventory.Api.Shared.Idempotence;
@@ -15,7 +14,7 @@ public class MessagingServiceInstaller : IServiceInstaller
     {
         services.AddMediatR(config =>
         {
-            config.RegisterServicesFromAssemblyContaining<InventoryManagementDbContext>();
+            config.RegisterServicesFromAssembly(typeof(Program).Assembly);
 
             config.AddOpenBehavior(typeof(ValidationPipelineBehavior<,>));
             config.AddOpenBehavior(typeof(QueryCachingPipelineBehavior<,>));
