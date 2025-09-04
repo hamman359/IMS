@@ -10,11 +10,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Shared\Messaging\Dispatcher.cs" />
-    <Compile Remove="Shared\Messaging\IDispatcher.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Carter" />
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" />
     <PackageReference Include="MediatR" />
@@ -41,6 +36,11 @@
     <Folder Include="Model\Entities\" />
     <Folder Include="Events\" />
     <Folder Include="Model\ValueObjects\" />
+    <Folder Include="Shared\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\IMS.SharedKernal\IMS.SharedKernal.csproj" />
   </ItemGroup>
 
 </Project>

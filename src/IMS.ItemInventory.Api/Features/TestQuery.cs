@@ -1,5 +1,5 @@
-﻿using IMS.ItemInventory.Api.Shared.Messaging;
-using IMS.ItemInventory.Api.Shared.Results;
+﻿using IMS.SharedKernal.Messaging;
+using IMS.SharedKernal.Results;
 
 namespace IMS.ItemInventory.Api.Features;
 

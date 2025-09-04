@@ -1,8 +1,6 @@
-﻿using FluentValidation;
-
-using IMS.ItemInventory.Api.Shared.Behaviors;
-using IMS.ItemInventory.Api.Shared.Configuration;
-using IMS.ItemInventory.Api.Shared.Idempotence;
+﻿using IMS.ItemInventory.Api.Idempotence;
+using IMS.SharedKernal.Behaviors;
+using IMS.SharedKernal.Configuration;
 
 using MediatR;
 
@@ -14,18 +12,23 @@ public class MessagingServiceInstaller : IServiceInstaller
     {
         services.AddMediatR(config =>
         {
-            config.RegisterServicesFromAssembly(typeof(Program).Assembly);
+            config.RegisterServicesFromAssembly(ItemInventoryAssemblyReference.Assembly);
+            //(typeof(Program).Assembly);
 
-            config.AddOpenBehavior(typeof(ValidationPipelineBehavior<,>));
-            config.AddOpenBehavior(typeof(QueryCachingPipelineBehavior<,>));
-            config.AddOpenBehavior(typeof(UnitOfWorkBehavior<,>));
-            config.AddOpenBehavior(typeof(LoggingPipelineBehavior<,>));
+            // Register all Pipeline behaviors. Ordering of the registration for these matters.
+            //config.AddOpenBehavior(typeof(ValidationPipelineBehavior<,>));
+            //config.AddOpenBehavior(typeof(QueryCachingPipelineBehavior<,>));
+            //config.AddOpenBehavior(typeof(UnitOfWorkBehavior<,>));
+            //config.AddOpenBehavior(typeof(LoggingPipelineBehavior<,>));
         });
 
-        services.Decorate(typeof(INotificationHandler<>), typeof(IdempotentDomainEventHandler<>));
+        services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidationPipelineBehavior<,>));
+        services.AddScoped(typeof(IPipelineBehavior<,>), typeof(QueryCachingPipelineBehavior<,>));
+        services.AddScoped(typeof(IPipelineBehavior<,>), typeof(UnitOfWorkBehavior<,>));
+        services.AddScoped(typeof(IPipelineBehavior<,>), typeof(LoggingPipelineBehavior<,>));
 
-        services.AddValidatorsFromAssembly(
-            ItemInventoryAssemblyReference.Assembly,
-            includeInternalTypes: true);
+
+        // Wraps instances of the INotificationHandler with the IdempotentDomainEventHandler
+        services.Decorate(typeof(INotificationHandler<>), typeof(IdempotentDomainEventHandler<>));
     }
 }

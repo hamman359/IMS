@@ -1,7 +1,7 @@
 ﻿using IMS.ItemInventory.Api.Data;
-using IMS.ItemInventory.Api.Shared.Outbox;
-using IMS.ItemInventory.Api.Shared.Persistence;
-using IMS.ItemInventory.Api.Shared.Primatives;
+using IMS.SharedKernal.Outbox;
+using IMS.SharedKernal.Persistence;
+using IMS.SharedKernal.Primatives;
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
@@ -10,39 +10,44 @@ using Newtonsoft.Json;
 
 namespace IMS.ItemInventory.Api.Persistence;
 
-public sealed class UnitOfWork : IUnitOfWork
+// Wrapper around EFs DbContext.SaveChangesAsync()
+// Using this wrapper allows for easier mocking during testing
+// and provides an extension point for adding functionality that
+// we want to have always occur when changes are persisted to the DB
+public sealed class UnitOfWork(InventoryManagementDbContext dbContext)
+    : IUnitOfWork
 {
-    readonly InventoryManagementDbContext _dbContext;
-
-    public UnitOfWork(InventoryManagementDbContext dbContext)
-    {
-        _dbContext = dbContext;
-    }
-
     public Task SaveChangesAsync(CancellationToken cancellationToken = default)
     {
         ConvertDomainEventsToOutboxMessages();
         UpdateAuditableEntities();
 
-        return _dbContext.SaveChangesAsync(cancellationToken);
+        return dbContext.SaveChangesAsync(cancellationToken);
     }
 
+    // Loads all of the Domain Events that have been raised by any Aggregate root objects
+    // and converts the Domain Events into Outbox Messages before they are persisted t
+    // the DB.
     void ConvertDomainEventsToOutboxMessages()
     {
-        var outboxMessages = _dbContext.ChangeTracker
+        var outboxMessages = dbContext.ChangeTracker
             .Entries<AggregateRoot>()
             .Select(x => x.Entity)
             .SelectMany(aggregateRoot =>
             {
                 var domainEvents = aggregateRoot.GetDomainEvents();
 
+                // Since we've already retrieved all of the Domain Evnets from this
+                // Aggregate Root, we now want to clear them out so that any additional
+                // operations that work with this Aggregate Root will not accidentally
+                // result in a Domain Event being processed multiple times.
                 aggregateRoot.ClearDomainEvents();
 
                 return domainEvents;
             })
             .Select(domainEvent => new OutboxMessage
             {
-                Id = Guid.NewGuid(),
+                Id = Guid.CreateVersion7(),
                 OccurredOnUtc = DateTime.UtcNow,
                 Type = domainEvent.GetType().Name,
                 Content = JsonConvert.SerializeObject(
@@ -54,13 +59,15 @@ public sealed class UnitOfWork : IUnitOfWork
             })
             .ToList();
 
-        _dbContext.Set<OutboxMessage>().AddRange(outboxMessages);
+        dbContext.Set<OutboxMessage>().AddRange(outboxMessages);
     }
 
+    // Locates all Entities that have been marked as Auditable and populates
+    // Auditing specific fields.
     void UpdateAuditableEntities()
     {
         IEnumerable<EntityEntry<IAuditableEntity>> entries =
-            _dbContext
+            dbContext
                 .ChangeTracker
                 .Entries<IAuditableEntity>();
 

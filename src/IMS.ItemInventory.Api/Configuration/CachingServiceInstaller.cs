@@ -1,5 +1,5 @@
-﻿using IMS.ItemInventory.Api.Shared.Caching;
-using IMS.ItemInventory.Api.Shared.Configuration;
+﻿using IMS.SharedKernal.Caching;
+using IMS.SharedKernal.Configuration;
 
 namespace IMS.ItemInventory.Api.Configuration;
 

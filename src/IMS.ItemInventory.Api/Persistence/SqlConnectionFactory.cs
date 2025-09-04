@@ -1,4 +1,4 @@
-﻿using IMS.ItemInventory.Api.Shared.Persistence;
+﻿using IMS.SharedKernal.Persistence;
 
 using Microsoft.Data.SqlClient;
 

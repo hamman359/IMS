@@ -1,6 +1,7 @@
 ﻿using Carter;
 
-using IMS.ItemInventory.Api.Shared.Configuration;
+using IMS.SharedKernal;
+using IMS.SharedKernal.Configuration;
 
 namespace IMS.ItemInventory.Api.Configuration;
 
@@ -10,6 +11,8 @@ public class ApiInstaller : IServiceInstaller
     {
         services.AddOpenApi();
 
-        services.AddCarter();
+        services.AddCarter(new DependencyContextAssemblyCatalog(
+            ItemInventoryAssemblyReference.Assembly,
+            SharedKernalAssemblyReference.Assembly));
     }
 }
