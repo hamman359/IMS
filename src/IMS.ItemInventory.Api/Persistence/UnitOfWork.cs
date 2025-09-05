@@ -14,7 +14,7 @@ namespace IMS.ItemInventory.Api.Persistence;
 // Using this wrapper allows for easier mocking during testing
 // and provides an extension point for adding functionality that
 // we want to have always occur when changes are persisted to the DB
-public sealed class UnitOfWork(InventoryManagementDbContext dbContext)
+internal sealed class UnitOfWork(InventoryManagementDbContext dbContext)
     : IUnitOfWork
 {
     public Task SaveChangesAsync(CancellationToken cancellationToken = default)

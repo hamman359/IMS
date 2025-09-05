@@ -5,7 +5,7 @@ namespace IMS.SharedKernal;
 /// <summary>
 /// Provides strongly typed reference to this assembly
 /// </summary>
-public static class SharedKernalAssemblyReference
+public static class AssemblyReference
 {
-    public static readonly Assembly Assembly = typeof(SharedKernalAssemblyReference).Assembly;
+    public static readonly Assembly Assembly = typeof(AssemblyReference).Assembly;
 }

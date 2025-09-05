@@ -1,6 +1,5 @@
 using Carter;
 
-using IMS.ItemInventory.Api.Configuration;
 using IMS.SharedKernal.Configuration;
 
 using Scalar.AspNetCore;
@@ -14,7 +13,6 @@ builder.Services
     .InstallServices(
         builder.Configuration,
         typeof(IServiceInstaller).Assembly);
-
 
 var app = builder.Build();
 

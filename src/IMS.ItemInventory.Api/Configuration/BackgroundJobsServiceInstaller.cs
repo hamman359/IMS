@@ -5,7 +5,7 @@ using Quartz;
 
 namespace IMS.ItemInventory.Api.Configuration;
 
-public class BackgroundJobsServiceInstaller : IServiceInstaller
+internal sealed class BackgroundJobsServiceInstaller : IServiceInstaller
 {
     public void Install(IServiceCollection services, IConfiguration configuration)
     {

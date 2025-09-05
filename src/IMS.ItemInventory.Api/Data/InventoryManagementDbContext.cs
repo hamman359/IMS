@@ -2,7 +2,7 @@
 
 namespace IMS.ItemInventory.Api.Data;
 
-public class InventoryManagementDbContext : DbContext
+internal class InventoryManagementDbContext : DbContext
 {
     public InventoryManagementDbContext(DbContextOptions options)
         : base(options)
@@ -10,5 +10,5 @@ public class InventoryManagementDbContext : DbContext
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder) =>
-        modelBuilder.ApplyConfigurationsFromAssembly(ItemInventoryAssemblyReference.Assembly);
+        modelBuilder?.ApplyConfigurationsFromAssembly(AssemblyReference.Assembly);
 }

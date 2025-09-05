@@ -7,14 +7,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace IMS.ItemInventory.Api.Configuration;
 
-public class DatabaseServiceInstaller : IServiceInstaller
+internal sealed class DatabaseServiceInstaller : IServiceInstaller
 {
     public void Install(IServiceCollection services, IConfiguration configuration)
     {
-        //services.AddSingleton<ConvertDomainEventsToOutboxMessagesInterceptor>();
-
-        //services.AddSingleton<UpdateAuditableEntitiesInterceptor>();
-
         services.AddDbContext<InventoryManagementDbContext>(
             (sp, optionsBuilder) =>
             {

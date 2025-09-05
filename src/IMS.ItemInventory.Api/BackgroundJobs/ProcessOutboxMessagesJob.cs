@@ -2,8 +2,6 @@
 using IMS.ItemInventory.Api.Shared.Messaging;
 using IMS.SharedKernal.Outbox;
 
-using MediatR;
-
 using Microsoft.EntityFrameworkCore;
 
 using Newtonsoft.Json;
@@ -16,7 +14,7 @@ using Quartz;
 namespace IMS.ItemInventory.Api.BackgroundJobs;
 
 [DisallowConcurrentExecution] //Ensures only one instance of the background job can run at a time
-public class ProcessOutboxMessagesJob(
+internal class ProcessOutboxMessagesJob(
     InventoryManagementDbContext dbContext,
     IPublisher publisher)
     : IJob

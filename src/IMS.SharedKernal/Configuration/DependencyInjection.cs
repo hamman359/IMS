@@ -1,10 +1,9 @@
 ﻿using System.Reflection;
 
-using FluentValidation;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
-using IMS.SharedKernal.Configuration;
-
-namespace IMS.ItemInventory.Api.Configuration;
+namespace IMS.SharedKernal.Configuration;
 
 public static class DependencyInjection
 {

@@ -3,7 +3,7 @@ using IMS.SharedKernal.Configuration;
 
 namespace IMS.ItemInventory.Api.Configuration;
 
-public class CachingServiceInstaller : IServiceInstaller
+internal sealed class CachingServiceInstaller : IServiceInstaller
 {
     public void Install(IServiceCollection services, IConfiguration configuration)
     {

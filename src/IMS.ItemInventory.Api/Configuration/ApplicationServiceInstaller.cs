@@ -4,10 +4,9 @@ using IMS.SharedKernal.Configuration;
 
 using Scrutor;
 
-
 namespace IMS.ItemInventory.Api.Configuration;
 
-public class ApplicationServiceInstaller : IServiceInstaller
+internal sealed class ApplicationServiceInstaller : IServiceInstaller
 {
     public void Install(IServiceCollection services, IConfiguration configuration)
     {
@@ -18,14 +17,14 @@ public class ApplicationServiceInstaller : IServiceInstaller
         services
             .Scan(
                 selector => selector
-                    .FromAssemblies(ItemInventoryAssemblyReference.Assembly)
+                    .FromAssemblies(AssemblyReference.Assembly)
                     .AddClasses(false)
                     .UsingRegistrationStrategy(RegistrationStrategy.Skip)
                     .AsMatchingInterface()
                     .WithScopedLifetime());
 
         services.AddValidatorsFromAssembly(
-            ItemInventoryAssemblyReference.Assembly,
+            AssemblyReference.Assembly,
             includeInternalTypes: true);
     }
 }
