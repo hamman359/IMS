@@ -1,6 +1,4 @@
-﻿using IMS.SharedKernal.Primatives;
-
-namespace IMS.ItemInventory.Api.Model.ValueObjects;
+﻿namespace IMS.ItemInventory.Api.Model.ValueObjects;
 
 internal sealed class InventoryItemIdentifier : ValueObject
 {
@@ -23,8 +21,8 @@ internal sealed class InventoryItemIdentifier : ValueObject
     {
         return Result.Ensure(
             sku,
-            (e => !string.IsNullOrWhiteSpace(sku), new Error("a", "a")),
-            (e => sku.Length >= MinimumLength && sku.Length <= MaximumLength, new Error("b", "b")))
+            (e => sku.IsNotNullOrWhiteSpace(), new Error("a", "a")),
+            (e => sku.LengthIsBetweenMinAndMax(MinimumLength, MaximumLength), new Error("b", "b")))
             //(e => SkuIsUnique(sku), new Error("c", "c")))
             .Map(e => new InventoryItemIdentifier(sku));
     }

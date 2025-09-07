@@ -1,6 +1,4 @@
-﻿
-using IMS.ItemInventory.Api.Model.ValueObjects;
-using IMS.SharedKernal.Primatives;
+﻿using IMS.ItemInventory.Api.Model.ValueObjects;
 
 namespace IMS.ItemInventory.Api.Model.Entities;
 

@@ -1,6 +1,4 @@
-﻿using IMS.SharedKernal.Primatives;
-
-namespace IMS.ItemInventory.Api.Model.ValueObjects;
+﻿namespace IMS.ItemInventory.Api.Model.ValueObjects;
 
 internal sealed class InventoryItemDescription : ValueObject
 {
@@ -20,7 +18,7 @@ internal sealed class InventoryItemDescription : ValueObject
     {
         return Result.Ensure(
             description,
-            (e => !string.IsNullOrWhiteSpace(description), new Error("a", "A")))
+            (e => description.IsNotNullOrWhiteSpace(), new Error("a", "A")))
             .Map(e => new InventoryItemDescription(description));
     }
 }
