@@ -1,4 +1,5 @@
 ﻿namespace IMS.SharedKernal.Results;
+
 public static class ResultExtensions
 {
     public static Result<T> Ensure<T>(

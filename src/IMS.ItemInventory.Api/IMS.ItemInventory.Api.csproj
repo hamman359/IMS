@@ -34,11 +34,8 @@
         <Folder Include="Abstractions\" />
         <Folder Include="Infrastructure\" />
         <Folder Include="Migrations\" />
-        <Folder Include="Model\" />
         <Folder Include="Errors\" />
-        <Folder Include="Model\Entities\" />
         <Folder Include="Events\" />
-        <Folder Include="Model\ValueObjects\" />
         <Folder Include="Shared\" />
     </ItemGroup>
 
