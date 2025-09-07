@@ -4,14 +4,14 @@ internal sealed class InventoryItemDescription : ValueObject
 {
     InventoryItemDescription(string description)
     {
-        Description = description;
+        Value = description;
     }
 
-    public string Description { get; init; }
+    public string Value { get; init; }
 
     public override IEnumerable<object> GetAtomicValues()
     {
-        yield return Description;
+        yield return Value;
     }
 
     public static Result<InventoryItemDescription> Create(string description)
