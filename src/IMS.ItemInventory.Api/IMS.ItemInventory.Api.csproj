@@ -34,7 +34,6 @@
         <Folder Include="Abstractions\" />
         <Folder Include="Infrastructure\" />
         <Folder Include="Migrations\" />
-        <Folder Include="Errors\" />
         <Folder Include="Events\" />
         <Folder Include="Shared\" />
     </ItemGroup>

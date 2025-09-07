@@ -18,7 +18,7 @@ internal sealed class InventoryItemDescription : ValueObject
     {
         return Result.Ensure(
             description,
-            (e => description.IsNotNullOrWhiteSpace(), new Error("a", "A")))
+            (e => description.IsNotNullOrWhiteSpace(), DomainErrors.InventoryItemDescription.Empty))
             .Map(e => new InventoryItemDescription(description));
     }
 }

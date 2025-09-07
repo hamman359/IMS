@@ -1,4 +1,5 @@
 ﻿namespace IMS.ItemInventory.Api.Model.ValueObjects;
+
 internal sealed class InventoryItemName : ValueObject
 {
     InventoryItemName(string name)
@@ -17,7 +18,7 @@ internal sealed class InventoryItemName : ValueObject
     {
         return Result.Ensure(
             name,
-            (e => name.IsNotNullOrWhiteSpace(), new Error("a", "A")))
+            (e => name.IsNotNullOrWhiteSpace(), DomainErrors.InventoryItemName.Empty))
             .Map(e => new InventoryItemName(name));
     }
 }

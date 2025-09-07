@@ -21,8 +21,10 @@ internal sealed class InventoryItemIdentifier : ValueObject
     {
         return Result.Ensure(
             sku,
-            (e => sku.IsNotNullOrWhiteSpace(), new Error("a", "a")),
-            (e => sku.LengthIsBetweenMinAndMax(MinimumLength, MaximumLength), new Error("b", "b")))
+            (e => sku.IsNotNullOrWhiteSpace(), DomainErrors.InventoryItemIdentifier.Empty),
+            (e =>
+                sku.LengthIsBetweenMinAndMax(MinimumLength, MaximumLength),
+                DomainErrors.InventoryItemIdentifier.InvalidLength(MinimumLength, MaximumLength)))
             //(e => SkuIsUnique(sku), new Error("c", "c")))
             .Map(e => new InventoryItemIdentifier(sku));
     }
