@@ -1,5 +1,7 @@
 ﻿using Carter;
 
+using FluentValidation;
+
 using IMS.ItemInventory.Api.Data.Repositories;
 using IMS.ItemInventory.Api.Model.Entities;
 
@@ -15,11 +17,11 @@ internal static class AddInventoryItem
                 Command command,
                 ISender sender,
                 CancellationToken cancellationToken) =>
-            {
-                var result = await sender.Send(command, cancellationToken);
+                {
+                    var result = await sender.Send(command, cancellationToken);
 
-                return result;
-            })
+                    return result;
+                })
                 .WithName("Add Inventory Item");
         }
     }
@@ -29,6 +31,16 @@ internal static class AddInventoryItem
         string Name,
         string Description)
         : ICommand<Guid>;
+
+    internal sealed class Validator : AbstractValidator<Command>
+    {
+        public Validator()
+        {
+            RuleFor(x => x.Name).NotEmpty();
+            RuleFor(x => x.Sku).NotEmpty();
+            RuleFor(x => x.Description).NotEmpty();
+        }
+    }
 
     internal sealed class CommandHandler(
        IInventoryItemRepository repository)
