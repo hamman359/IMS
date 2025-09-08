@@ -1,9 +1,5 @@
 ﻿using FluentValidation;
 
-using IMS.SharedKernal.Results;
-
-using MediatR;
-
 namespace IMS.SharedKernal.Behaviors;
 
 /// <summary>

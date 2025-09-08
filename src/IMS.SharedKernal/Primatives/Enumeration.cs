@@ -1,6 +1,4 @@
-﻿using System.Reflection;
-
-namespace IMS.SharedKernal.Primatives;
+﻿namespace IMS.SharedKernal.Primatives;
 
 public abstract class Enumeration<TEnum>
     : IEquatable<Enumeration<TEnum>>

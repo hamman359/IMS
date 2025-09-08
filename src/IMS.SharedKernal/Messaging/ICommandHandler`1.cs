@@ -1,19 +1,14 @@
-﻿using IMS.SharedKernal.Results;
-
-namespace IMS.SharedKernal.Messaging;
+﻿namespace IMS.SharedKernal.Messaging;
 
 public interface ICommandHandler<in TCommand>
-    : IBaseCommandHandler
+    : IRequestHandler<TCommand, Result>
     where TCommand : ICommand
 {
-    Task<Result> Handle(TCommand command, CancellationToken cancelationToken);
 }
 
 public interface ICommandHandler<in TCommand, TResponse>
-    : IBaseCommandHandler
+    : IRequestHandler<TCommand, Result<TResponse>>
     where TCommand : ICommand<TResponse>
 {
-    Task<Result<TResponse>> Handle(TCommand command, CancellationToken cancelationToken);
 }
 
-public interface IBaseCommandHandler { }

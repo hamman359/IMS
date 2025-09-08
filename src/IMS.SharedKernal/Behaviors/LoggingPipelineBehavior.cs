@@ -1,7 +1,4 @@
 ﻿using IMS.ItemInventory.Api.Shared.Behaviors;
-using IMS.SharedKernal.Results;
-
-using MediatR;
 
 using Microsoft.Extensions.Logging;
 
@@ -26,7 +23,7 @@ public class LoggingPipelineBehavior<TRequest, TResponse>(
         RequestHandlerDelegate<TResponse> next,
         CancellationToken cancellationToken)
     {
-        // Using Compile-time logging source generation to make log messages 
+        // Using Compile-time logging source generation to make log messages
         // Easier to read and more performant
         LogMessage.LogStartingRequest(logger, typeof(TRequest).Name, DateTime.UtcNow);
 

@@ -6,6 +6,14 @@ using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddCarter(new DependencyContextAssemblyCatalog(
+            IMS.ItemInventory.Api.AssemblyReference.Assembly,
+            IMS.SharedKernal.AssemblyReference.Assembly));
+
+builder.Services.AddEndpointsApiExplorer();
+
+builder.Services.AddOpenApi();
+
 // InstallServices is used to register configuration settings that are located in other
 // files. More information about how this works and why it is benificial can be found in
 // /Configuration/DependencyInjecttion.cs

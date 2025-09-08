@@ -5,11 +5,10 @@ namespace IMS.ItemInventory.Api.Model.Entities;
 internal class InventoryItem : AggregateRoot
 {
     InventoryItem(
-        Guid id,
         InventoryItemIdentifier itemIdentifier,
         InventoryItemName name,
         InventoryItemDescription description)
-        : base(id)
+        : base()
     {
         ItemIdentifier = itemIdentifier;
         Name = name;
@@ -25,14 +24,35 @@ internal class InventoryItem : AggregateRoot
         string name,
         string description)
     {
-        Guid id = Guid.CreateVersion7(); //Wrap in service
+        List<Error> errors = [];
 
         Result<InventoryItemIdentifier> skuResult = InventoryItemIdentifier.Create(sku);
+
+        if (skuResult.IsFailure)
+        {
+            errors.AddRange(skuResult.Errors);
+        }
+
         Result<InventoryItemName> nameResult = InventoryItemName.Create(name);
+
+        if (nameResult.IsFailure)
+        {
+            errors.AddRange(nameResult.Errors);
+        }
+
         Result<InventoryItemDescription> descriptionResult = InventoryItemDescription.Create(description);
 
+        if (descriptionResult.IsFailure)
+        {
+            errors.AddRange(descriptionResult.Errors);
+        }
+
+        if (errors.Count > 0)
+        {
+            return Result.Failure<InventoryItem>(errors.ToArray());
+        }
+
         var item = new InventoryItem(
-            id,
             skuResult.Value,
             nameResult.Value,
             descriptionResult.Value);

@@ -1,9 +1,6 @@
-﻿using MediatR;
+﻿namespace IMS.SharedKernal.Messaging;
 
-namespace IMS.SharedKernal.Messaging;
+public interface ICommand : IRequest<Result> { }
 
-public interface ICommand : IBaseCommand { }
+public interface ICommand<TResponse> : IRequest<Result<TResponse>> { }
 
-public interface ICommand<TResponse> : IBaseCommand { }
-
-public interface IBaseCommand : IRequest { }

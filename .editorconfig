@@ -207,6 +207,7 @@ dotnet_diagnostic.S2326.severity = suggestion
 # CA2225: Operator overloads have named alternates
 dotnet_diagnostic.CA2225.severity = suggestion
 dotnet_diagnostic.S4035.severity = none
+dotnet_diagnostic.S1144.severity = suggestion
 
 [*.{cs,vb}]
 

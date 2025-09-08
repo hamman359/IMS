@@ -2,7 +2,10 @@
 
 public abstract class Entity : IEquatable<Entity>
 {
-    protected Entity(Guid id) => Id = id;
+    protected Entity()
+    {
+        Id = GenerateId();
+    }
 
     public Guid Id { get; private init; }
 
@@ -48,4 +51,6 @@ public abstract class Entity : IEquatable<Entity>
     }
 
     public override int GetHashCode() => Id.GetHashCode() * 41;
+
+    static Guid GenerateId() => Guid.CreateVersion7();
 }

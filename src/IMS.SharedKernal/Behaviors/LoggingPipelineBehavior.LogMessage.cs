@@ -1,6 +1,4 @@
-﻿using IMS.SharedKernal.Results;
-
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 
 namespace IMS.ItemInventory.Api.Shared.Behaviors;
 

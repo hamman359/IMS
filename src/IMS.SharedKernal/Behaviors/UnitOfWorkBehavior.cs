@@ -1,10 +1,7 @@
-﻿
-using System.Transactions;
+﻿using System.Transactions;
 using System.Windows.Input;
 
 using IMS.SharedKernal.Persistence;
-
-using MediatR;
 
 namespace IMS.SharedKernal.Behaviors;
 

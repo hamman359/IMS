@@ -2,7 +2,7 @@
 
 namespace IMS.ItemInventory.Api.Features.TestFeature;
 
-public class Endpoint : ICarterModule
+internal sealed class Endpoint : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
     {

@@ -1,9 +1,6 @@
 ﻿using IMS.ItemInventory.Api.Shared.Behaviors;
 using IMS.SharedKernal.Caching;
 using IMS.SharedKernal.Messaging;
-using IMS.SharedKernal.Results;
-
-using MediatR;
 
 using Microsoft.Extensions.Logging;
 

@@ -3,7 +3,7 @@
 internal class TestQueryHandler
     : IQueryHandler<TestQuery, string>
 {
-    public async Task<Result<string>> Handle(TestQuery query, CancellationToken cancelationToken)
+    public async Task<Result<string>> Handle(TestQuery query, CancellationToken cancellationToken)
     {
         await Task.CompletedTask;
 
