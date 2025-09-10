@@ -14,6 +14,7 @@
     <PackageVersion Include="Microsoft.Data.SqlClient" Version="6.1.1" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="10.0.0-preview.7.25380.108" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.0-preview.7.25380.108" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="10.0.0-preview.7.25380.108" />
     <PackageVersion Include="Microsoft.Extensions.ApiDescription.Server" Version="10.0.0-preview.7.25380.108">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
@@ -26,7 +27,7 @@
     <PackageVersion Include="Quartz" Version="3.15.0" />
     <PackageVersion Include="Quartz.Extensions.DependencyInjection" Version="3.15.0" />
     <PackageVersion Include="Quartz.Extensions.Hosting" Version="3.15.0" />
-    <PackageVersion Include="Scalar.AspNetCore" Version="2.7.2" />
+    <PackageVersion Include="Scalar.AspNetCore" Version="2.7.3" />
     <PackageVersion Include="Scrutor" Version="6.1.0" />
     <PackageVersion Include="SonarAnalyzer.CSharp" Version="10.15.0.120848" />
   </ItemGroup>

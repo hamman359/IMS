@@ -5,8 +5,6 @@ using IMS.SharedKernal.Configuration;
 using IMS.SharedKernal.Persistence;
 
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 
 namespace IMS.ItemInventory.Api.Configuration;

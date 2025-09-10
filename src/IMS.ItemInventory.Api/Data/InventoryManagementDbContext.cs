@@ -4,7 +4,7 @@ namespace IMS.ItemInventory.Api.Data;
 
 internal class InventoryManagementDbContext : DbContext
 {
-    public InventoryManagementDbContext(DbContextOptions options)
+    public InventoryManagementDbContext(DbContextOptions<InventoryManagementDbContext> options)
         : base(options)
     {
     }

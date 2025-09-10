@@ -18,11 +18,13 @@ internal sealed class InventoryItemConfiguration
 
         builder
             .Property(x => x.ItemIdentifier)
-            .HasConversion(x => x.Sku, x => InventoryItemIdentifier.Create(x).Value);
+            .HasConversion(x => x.Sku, x => InventoryItemIdentifier.Create(x).Value)
+            .HasMaxLength(50);
 
         builder
             .Property(x => x.Name)
-            .HasConversion(x => x.Value, x => InventoryItemName.Create(x).Value);
+            .HasConversion(x => x.Value, x => InventoryItemName.Create(x).Value)
+            .HasMaxLength(100);
 
         builder
             .Property(x => x.Description)
