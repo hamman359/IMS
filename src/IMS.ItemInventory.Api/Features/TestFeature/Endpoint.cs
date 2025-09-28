@@ -2,19 +2,23 @@
 
 namespace IMS.ItemInventory.Api.Features.TestFeature;
 
-internal sealed class Endpoint : ICarterModule
+public sealed class Endpoint : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapGet("/test", async (
-            ISender sender,
-            CancellationToken cancellationToken) =>
+        //app.MapGet("/test", async (
+        //    ISender sender,
+        //    CancellationToken cancellationToken) =>
+        //{
+        //    var query = new TestQuery();
+
+        //    var result = await sender.Send(query, cancellationToken);
+
+        //    return Results.Ok(result);
+        //})
+        app.MapGet("/test", () =>
         {
-            var query = new TestQuery();
-
-            var result = await sender.Send(query, cancellationToken);
-
-            return Results.Ok(result);
+            return Results.Ok("Test");
         })
         .WithName("Test");
     }

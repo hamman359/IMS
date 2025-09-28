@@ -6,13 +6,13 @@ using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddCarter(new DependencyContextAssemblyCatalog(
-            IMS.ItemInventory.Api.AssemblyReference.Assembly,
-            IMS.SharedKernal.AssemblyReference.Assembly));
+//builder.Services.AddCarter(new DependencyContextAssemblyCatalog(
+//            IMS.ItemInventory.Api.AssemblyReference.Assembly,
+//            IMS.SharedKernal.AssemblyReference.Assembly));
 
-builder.Services.AddEndpointsApiExplorer();
+//builder.Services.AddEndpointsApiExplorer();
 
-builder.Services.AddOpenApi();
+//builder.Services.AddOpenApi();
 
 // InstallServices is used to register configuration settings that are located in other
 // files. More information about how this works and why it is benificial can be found in
@@ -20,7 +20,9 @@ builder.Services.AddOpenApi();
 builder.Services
     .InstallServices(
         builder.Configuration,
-        typeof(IServiceInstaller).Assembly);
+        IMS.SharedKernal.AssemblyReference.Assembly,
+        IMS.ItemInventory.Api.AssemblyReference.Assembly
+        );
 
 var app = builder.Build();
 
@@ -29,6 +31,7 @@ if (app.Environment.IsDevelopment())
 {
     // Configure the OpenApi endpoint
     app.MapOpenApi();
+
     // Configure the UI for API documentation and interactions.
     // More information at https://guides.scalar.com/scalar/introduction
     app.MapScalarApiReference(options =>

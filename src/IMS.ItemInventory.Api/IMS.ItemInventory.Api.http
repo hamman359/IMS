@@ -1,6 +1,16 @@
-@IMS.ItemInventory.Api_HostAddress = http://localhost:5117
+@IMS.ItemInventory.Api_HostAddress = https://localhost:8081
 
-GET {{IMS.ItemInventory.Api_HostAddress}}/weatherforecast/
+POST {{IMS.ItemInventory.Api_HostAddress}}/InventoryItem
 Accept: application/json
+Content-Type: application/json
+
+{
+  "sku": "abc-123",
+  "name": "Item1",
+  "description": "This is item 1"
+}
 
 ###
+GET {{IMS.ItemInventory.Api_HostAddress}}/test
+Accept: application/json
+

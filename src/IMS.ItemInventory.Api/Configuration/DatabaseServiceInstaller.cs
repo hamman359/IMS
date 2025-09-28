@@ -1,8 +1,8 @@
 ﻿using IMS.ItemInventory.Api.Configuration.Options;
 using IMS.ItemInventory.Api.Data;
+using IMS.ItemInventory.Api.Data.Repositories;
 using IMS.ItemInventory.Api.Persistence;
 using IMS.SharedKernal.Configuration;
-using IMS.SharedKernal.Persistence;
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -31,12 +31,12 @@ internal sealed class DatabaseServiceInstaller : IServiceInstaller
                     .EnableSensitiveDataLogging(databaseOptions.EnableSensitiveDataLogging);
             });
 
-        services.AddScoped<InventoryManagementDbContext>(sp =>
+        services.AddScoped(sp =>
             sp.GetRequiredService<InventoryManagementDbContext>());
 
-        services.AddScoped<IUnitOfWork>(sp =>
+        services.AddScoped(sp =>
             sp.GetRequiredService<UnitOfWork>());
 
-        //services.AddScoped<IFooRepository, FooRepository>();
+        services.AddScoped<IInventoryItemRepository, InventoryItemRepository>();
     }
 }

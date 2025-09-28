@@ -7,18 +7,17 @@ using IMS.ItemInventory.Api.Model.Entities;
 
 namespace IMS.ItemInventory.Api.Features;
 
-internal static class AddInventoryItem
+public static class AddInventoryItem
 {
-    internal sealed class Endpoint : ICarterModule
+    public sealed class Endpoint : ICarterModule
     {
         public void AddRoutes(IEndpointRouteBuilder app)
         {
             app.MapPost("/InventoryItem", async (
-                Command command,
-                ISender sender,
-                CancellationToken cancellationToken) =>
+                AddInventoryItemCommand command,
+                ISender sender) =>
                 {
-                    var result = await sender.Send(command, cancellationToken);
+                    var result = await sender.Send(command);
 
                     return result;
                 })
@@ -26,13 +25,13 @@ internal static class AddInventoryItem
         }
     }
 
-    internal sealed record Command(
+    internal sealed record AddInventoryItemCommand(
         string Sku,
         string Name,
         string Description)
         : ICommand<Guid>;
 
-    internal sealed class Validator : AbstractValidator<Command>
+    internal sealed class Validator : AbstractValidator<AddInventoryItemCommand>
     {
         public Validator()
         {
@@ -44,10 +43,10 @@ internal static class AddInventoryItem
 
     internal sealed class CommandHandler(
        IInventoryItemRepository repository)
-       : ICommandHandler<Command, Guid>
+       : ICommandHandler<AddInventoryItemCommand, Guid>
     {
         public Task<Result<Guid>> Handle(
-            Command command,
+            AddInventoryItemCommand command,
             CancellationToken cancellationToken)
         {
             var item = InventoryItem.Create(

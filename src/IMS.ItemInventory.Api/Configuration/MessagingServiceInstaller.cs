@@ -1,4 +1,5 @@
-﻿using IMS.ItemInventory.Api.Idempotence;
+﻿using FluentValidation;
+
 using IMS.SharedKernal.Behaviors;
 using IMS.SharedKernal.Configuration;
 
@@ -21,6 +22,11 @@ internal sealed class MessagingServiceInstaller : IServiceInstaller
         });
 
         // Wraps instances of the INotificationHandler with the IdempotentDomainEventHandler
-        services.Decorate(typeof(INotificationHandler<>), typeof(IdempotentDomainEventHandler<>));
+        //services.Decorate(typeof(INotificationHandler<>), typeof(IdempotentDomainEventHandler<>));
+
+        services.AddValidatorsFromAssembly(
+            AssemblyReference.Assembly,
+            includeInternalTypes: true);
+
     }
 }
